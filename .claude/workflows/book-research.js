@@ -272,10 +272,28 @@ const SYNTHESIS_SCHEMA = {
 
 // ── Input Handling ───────────────────────────────────────────────────────────
 
-const bookName = args && args.book ? args.book : 'unknown book'
+// Robust args parsing: handle object { book: "name" }, stringified JSON, or plain string
+let bookName = 'unknown book'
+if (args) {
+  if (typeof args === 'object' && args.book) {
+    // Normal case: args = { book: "Influence: ..." }
+    bookName = args.book
+  } else if (typeof args === 'string') {
+    try {
+      const parsed = JSON.parse(args)
+      bookName = (parsed && parsed.book) ? parsed.book : args
+    } catch (e) {
+      // args is a plain book name string, use directly
+      bookName = args
+    }
+  }
+}
 const isChinese = /[一-鿿]/.test(bookName)
-const year = '2026'
-const month = '2026-06'
+
+// Date must be passed via args since Date.now()/new Date() are unavailable in workflows
+const today = (args && typeof args === 'object' && args.date) ? args.date : '2026-06-29'
+const year = today.slice(0, 4)
+const month = today.slice(0, 7)
 
 // For directory/file naming
 const kebabName = isChinese
@@ -559,7 +577,7 @@ log('Synthesis complete. Writing final report...')
 
 phase('Report')
 
-const reportPath = `reports/${kebabName}/${kebabName}.md`
+const reportPath = `reports/${kebabName}/${kebabName}-${today}.md`
 const fullData = JSON.stringify({ content, reviews, interpretations, authorCtx, synthesis }, null, 2)
 
 const report = await agent(

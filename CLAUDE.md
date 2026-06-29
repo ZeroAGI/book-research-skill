@@ -21,19 +21,19 @@ README.md                                  # 项目说明
 ```
 reports/
 ├── 穷查理宝典/
-│   └── 穷查理宝典.md
+│   └── 穷查理宝典-2026-06-29.md
 ├── thinking-fast-and-slow/
-│   └── thinking-fast-and-slow.md
+│   └── thinking-fast-and-slow-2026-06-29.md
 └── 人类简史/
-    └── 人类简史.md
+    └── 人类简史-2026-06-29.md
 ```
 
 ## 报告命名规范
 
 | 书籍语言 | 目录名 | 文件名 |
 |---------|--------|--------|
-| 中文 | `reports/{书名}/` | `{书名}.md` |
-| 英文 | `reports/{book-name-kebab-case}/` | `{book-name-kebab-case}.md` |
+| 中文 | `reports/{书名}/` | `{书名}-{YYYY-MM-DD}.md` |
+| 英文 | `reports/{book-name-kebab-case}/` | `{book-name-kebab-case}-{YYYY-MM-DD}.md` |
 
 ## 核心原则（最高优先级）
 

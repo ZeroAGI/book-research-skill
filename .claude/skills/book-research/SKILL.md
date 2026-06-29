@@ -3,7 +3,7 @@ name: book-research
 description: >-
   书籍深度研究报告：从书籍内容、读者评价、解读文章、作者背景四个维度并行研究，
   产出一份足以替代读书的综合报告。
-  产出落盘于 reports/{book-name}/{book-name}.md。
+  产出落盘于 reports/{book-name}/{book-name}-{YYYY-MM-DD}.md。
   所有产出仅供学习参考。
 user_invocable: true
 ---
@@ -87,13 +87,13 @@ Workflow({ name: "book-research" })
 
 可传入参数：
 ```
-Workflow({ name: "book-research", args: { book: "穷查理宝典" } })
-Workflow({ name: "book-research", args: { book: "Thinking, Fast and Slow" } })
+Workflow({ name: "book-research", args: { book: "穷查理宝典", date: "2026-06-29" } })
+Workflow({ name: "book-research", args: { book: "Thinking, Fast and Slow", date: "2026-06-29" } })
 ```
 
-如果用户直接输入书名（$ARGUMENTS 非空），自动传入：
+如果用户直接输入书名（$ARGUMENTS 非空），自动传入（date 使用当天日期）：
 ```
-Workflow({ name: "book-research", args: { book: "$ARGUMENTS" } })
+Workflow({ name: "book-research", args: { book: "$ARGUMENTS", date: "YYYY-MM-DD" } })
 ```
 
 Workflow 完成后会自动：
@@ -288,8 +288,8 @@ Amazon:
 ### Step 7：撰写报告
 
 报告落盘路径：
-- 中文书：`reports/{书名}/{书名}.md`
-- 英文书：`reports/{book-name-kebab-case}/{book-name-kebab-case}.md`
+- 中文书：`reports/{书名}/{书名}-{YYYY-MM-DD}.md`
+- 英文书：`reports/{book-name-kebab-case}/{book-name-kebab-case}-{YYYY-MM-DD}.md`
 
 ## 报告模板
 
