@@ -85,15 +85,20 @@ user_invocable: true
 Workflow({ name: "book-research" })
 ```
 
-可传入参数：
-```
-Workflow({ name: "book-research", args: { book: "穷查理宝典", date: "2026-06-29" } })
-Workflow({ name: "book-research", args: { book: "Thinking, Fast and Slow", date: "2026-06-29" } })
+**重要：每次运行前必须先获取当前日期**：
+```bash
+date +%Y-%m-%d
 ```
 
-如果用户直接输入书名（$ARGUMENTS 非空），自动传入（date 使用当天日期）：
+然后将获取到的日期传入 args.date：
 ```
-Workflow({ name: "book-research", args: { book: "$ARGUMENTS", date: "YYYY-MM-DD" } })
+Workflow({ name: "book-research", args: { book: "穷查理宝典", date: "<从 date 命令获取的日期>" } })
+Workflow({ name: "book-research", args: { book: "Thinking, Fast and Slow", date: "<从 date 命令获取的日期>" } })
+```
+
+如果用户直接输入书名（$ARGUMENTS 非空），先运行 `date +%Y-%m-%d` 获取当天日期，再传入：
+```
+Workflow({ name: "book-research", args: { book: "$ARGUMENTS", date: "<当天日期>" } })
 ```
 
 Workflow 完成后会自动：

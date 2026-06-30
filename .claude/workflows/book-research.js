@@ -290,8 +290,12 @@ if (args) {
 }
 const isChinese = /[一-鿿]/.test(bookName)
 
-// Date must be passed via args since Date.now()/new Date() are unavailable in workflows
-const today = (args && typeof args === 'object' && args.date) ? args.date : '2026-06-29'
+// Date MUST be passed via args since Date.now()/new Date() are unavailable in workflows.
+// SKILL.md instructs the caller to run `date +%Y-%m-%d` and pass the result here.
+if (!args || typeof args !== 'object' || !args.date) {
+  log('⚠️ WARNING: args.date not provided — the caller must run `date +%Y-%m-%d` and pass it via args.date')
+}
+const today = (args && typeof args === 'object' && args.date) ? args.date : 'UNKNOWN-DATE'
 const year = today.slice(0, 4)
 const month = today.slice(0, 7)
 
